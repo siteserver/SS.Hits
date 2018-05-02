@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SS.Hits</id>
+    <version>$version$</version>
+    <title>内容点击量插件</title>
+    <authors>SiteServer CMS</authors>
+    <owners>siteserver</owners>
+    <licenseUrl>https://github.com/siteserver/SS.Hits/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://plugins.siteserver.cn/ss.hits/</projectUrl>
+    <iconUrl>http://plugins.siteserver.cn/ss.hits/logo.svg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SiteServer CMS 内容点击量插件</description>
+    <releaseNotes>SiteServer CMS 内容点击量插件</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>SiteServer CMS Hits Plugin</tags>
+  </metadata>
+  <files>
+    <file src="assets\fonts\**" target="Content\assets\fonts"/>
+  </files>
+</package>
