@@ -15,7 +15,7 @@ var client = new OSS({
   bucket: 'plugins-siteserver-cn',
   region: 'oss-cn-zhangjiakou'
 });
-var ossPrefix = 'ss.form';
+var ossPrefix = 'ss.hits';
 
 var install = function () {
   child_process.execSync('gitbook install docs', { stdio: [0, 1, 2] });

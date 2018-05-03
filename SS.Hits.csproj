@@ -101,6 +101,7 @@
     <Content Include="assets\datePicker\WdatePicker.js" />
     <Content Include="assets\fonts\ionicons.svg" />
     <Content Include="assets\formbase\formbase.min.css" />
+    <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\vee-validate.js" />
     <Content Include="assets\js\vue-2.1.10.min.js" />
     <Content Include="assets\readme\001.jpg" />
@@ -109,6 +110,7 @@
     <Content Include="assets\readme\import05.png" />
     <Content Include="assets\sweetalert\sweetalert.min.js" />
     <Content Include="logo.svg" />
+    <Content Include="pageSettings.aspx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
