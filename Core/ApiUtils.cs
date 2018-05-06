@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using SiteServer.Plugin;
-using SS.Hits.Model;
+﻿using SiteServer.Plugin;
 
 namespace SS.Hits.Core
 {
@@ -28,10 +19,7 @@ namespace SS.Hits.Core
                 Main.Instance.HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
             }
 
-            return new
-            {
-                id
-            };
+            return string.Empty;
         }
     }
 }

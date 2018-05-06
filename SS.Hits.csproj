@@ -52,8 +52,6 @@
   <ItemGroup>
     <Compile Include="Core\AlertUtils.cs" />
     <Compile Include="Core\ApiUtils.cs" />
-    <Compile Include="Core\CacheUtils.cs" />
-    <Compile Include="Core\CsvUtils.cs" />
     <Compile Include="Controls\DateTimeTextBox.cs" />
     <Compile Include="Core\LayerUtils.cs" />
     <Compile Include="Core\Utils.cs" />
