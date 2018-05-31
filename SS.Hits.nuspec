@@ -8,7 +8,7 @@
     <owners>siteserver</owners>
     <licenseUrl>https://github.com/siteserver/SS.Hits/blob/master/LICENSE</licenseUrl>
     <projectUrl>http://plugins.siteserver.cn/ss.hits/</projectUrl>
-    <iconUrl>http://plugins.siteserver.cn/ss.hits/logo.svg</iconUrl>
+    <iconUrl>https://plugins.siteserver.cn/ss.hits/logo.svg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>SiteServer CMS 内容点击量插件</description>
     <releaseNotes>新增插件</releaseNotes>
