@@ -49,7 +49,7 @@ namespace SS.Hits
         {
             if (e.TemplateType == TemplateType.ContentTemplate && e.ContentId > 0)
             {
-                var apiUrl = Instance.PluginApi.GetPluginApiUrl(nameof(ApiUtils.Hits), $"{e.SiteId}_{e.ChannelId}_{e.ContentId}");
+                var apiUrl = $"{Instance.PluginApi.PluginApiUrl}/{nameof(ApiUtils.Hits)}/{e.SiteId}_{e.ChannelId}_{e.ContentId}";
                 e.ContentBuilder.Append($@"
 <script src=""{apiUrl}"" type=""text/javascript""></script>");
             }
@@ -57,9 +57,9 @@ namespace SS.Hits
 
         private object Service_ApiGet(object sender, ApiEventArgs args)
         {
-            if (Utils.EqualsIgnoreCase(args.Action, nameof(ApiUtils.Hits)))
+            if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(ApiUtils.Hits)))
             {
-                return ApiUtils.Hits(args.Request, args.Id);
+                return ApiUtils.Hits(args.Request, args.RouteId);
             }
 
             throw new Exception("请求的资源不在服务器上");
