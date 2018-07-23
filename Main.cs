@@ -30,7 +30,7 @@ namespace SS.Hits
         {
             Instance = this;
 
-            HitsDao = new HitsDao(ConnectionString, DataApi);
+            HitsDao = new HitsDao(ConnectionString, DatabaseApi);
 
             service
                 .AddSiteMenu(siteId => new Menu

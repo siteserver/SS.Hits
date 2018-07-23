@@ -14,7 +14,7 @@ namespace SS.Hits.Core
                 var contentId = Utils.ToInt(idList[2]);
                 var configInfo = Main.Instance.GetConfigInfo(siteId);
 
-                var tableName = Main.Instance.ChannelApi.GetTableName(siteId, channelId);
+                var tableName = Main.Instance.ContentApi.GetTableName(siteId, channelId);
                 
                 Main.Instance.HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
             }

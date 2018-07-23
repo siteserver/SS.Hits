@@ -11,9 +11,9 @@ namespace SS.Hits.Provider
     public class HitsDao
     {
         private readonly string _connectionString;
-        private readonly IDataApi _helper;
+        private readonly IDatabaseApi _helper;
 
-        public HitsDao(string connectionString, IDataApi helper)
+        public HitsDao(string connectionString, IDatabaseApi helper)
         {
             _connectionString = connectionString;
             _helper = helper;
