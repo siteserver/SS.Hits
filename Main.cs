@@ -42,7 +42,7 @@ namespace SS.Hits
                 ;
 
             service.BeforeStlParse += Service_BeforeStlParse;
-            service.ApiGet += Service_ApiGet;
+            service.RestApiGet += Service_ApiGet;
         }
 
         private void Service_BeforeStlParse(object sender, ParseEventArgs e)
@@ -55,7 +55,7 @@ namespace SS.Hits
             }
         }
 
-        private object Service_ApiGet(object sender, ApiEventArgs args)
+        private object Service_ApiGet(object sender, RestApiEventArgs args)
         {
             if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(ApiUtils.Hits)))
             {
