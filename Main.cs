@@ -11,26 +11,29 @@ namespace SS.Hits
 {
     public class Main : PluginBase
     {
+        public static string PluginId { get; private set; }
+
         private static readonly Dictionary<int, ConfigInfo> ConfigInfoDict = new Dictionary<int, ConfigInfo>();
 
-        public ConfigInfo GetConfigInfo(int siteId)
+        public static ConfigInfo GetConfigInfo(int siteId)
         {
             if (!ConfigInfoDict.ContainsKey(siteId))
             {
-                ConfigInfoDict[siteId] = ConfigApi.GetConfig<ConfigInfo>(siteId) ?? new ConfigInfo();
+                ConfigInfoDict[siteId] = Context.ConfigApi.GetConfig<ConfigInfo>(PluginId, siteId) ?? new ConfigInfo();
             }
             return ConfigInfoDict[siteId];
         }
 
-        public static Main Instance { get; private set; }
+        public static HitsDao HitsDao { get; }
 
-        public HitsDao HitsDao { get; private set; }
+        static Main()
+        {
+            HitsDao = new HitsDao(Context.ConnectionString, Context.DatabaseApi);
+        }
 
         public override void Startup(IService service)
         {
-            Instance = this;
-
-            HitsDao = new HitsDao(ConnectionString, DatabaseApi);
+            PluginId = Id;
 
             service
                 .AddSiteMenu(siteId => new Menu
@@ -49,7 +52,7 @@ namespace SS.Hits
         {
             if (e.TemplateType == TemplateType.ContentTemplate && e.ContentId > 0)
             {
-                var apiUrl = $"{Instance.PluginApi.PluginApiUrl}/{nameof(ApiUtils.Hits)}/{e.SiteId}_{e.ChannelId}_{e.ContentId}";
+                var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{nameof(ApiUtils.Hits)}/{e.SiteId}_{e.ChannelId}_{e.ContentId}";
                 e.ContentBuilder.Append($@"
 <script src=""{apiUrl}"" type=""text/javascript""></script>");
             }

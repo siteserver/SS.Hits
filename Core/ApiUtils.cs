@@ -12,11 +12,11 @@ namespace SS.Hits.Core
                 var siteId = Utils.ToInt(idList[0]);
                 var channelId = Utils.ToInt(idList[1]);
                 var contentId = Utils.ToInt(idList[2]);
-                var configInfo = Main.Instance.GetConfigInfo(siteId);
+                var configInfo = Main.GetConfigInfo(siteId);
 
-                var tableName = Main.Instance.ContentApi.GetTableName(siteId, channelId);
+                var tableName = Context.ContentApi.GetTableName(siteId, channelId);
                 
-                Main.Instance.HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
+                Main.HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
             }
 
             return string.Empty;

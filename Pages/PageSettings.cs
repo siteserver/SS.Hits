@@ -20,14 +20,14 @@ namespace SS.Hits.Pages
         {
             _siteId = Convert.ToInt32(Request.QueryString["siteId"]);
 
-            if (!Main.Instance.Request.AdminPermissions.HasSitePermissions(_siteId, Main.Instance.Id))
+            if (!SiteServer.Plugin.Context.Request.AdminPermissions.HasSitePermissions(_siteId, Main.PluginId))
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
                 return;
             }
 
-            _configInfo = Main.Instance.GetConfigInfo(_siteId);
+            _configInfo = Main.GetConfigInfo(_siteId);
 
             if (IsPostBack) return;
 
@@ -42,7 +42,7 @@ namespace SS.Hits.Pages
             _configInfo.IsHitsDisabled = Utils.ToBool(DdlIsHitsDisabled.SelectedValue);
             _configInfo.IsDownloadsDisabled = Utils.ToBool(DdlIsDownloadsDisabled.SelectedValue);
 
-            Main.Instance.ConfigApi.SetConfig(_siteId, _configInfo);
+            SiteServer.Plugin.Context.ConfigApi.SetConfig(Main.PluginId, _siteId, _configInfo);
             LtlMessage.Text = Utils.GetMessageHtml("设置修改成功！", true);
         }
     }
