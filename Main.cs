@@ -4,7 +4,6 @@ using SiteServer.Plugin;
 using SS.Hits.Core;
 using SS.Hits.Model;
 using SS.Hits.Pages;
-using SS.Hits.Provider;
 using Menu = SiteServer.Plugin.Menu;
 
 namespace SS.Hits
@@ -22,13 +21,6 @@ namespace SS.Hits
                 ConfigInfoDict[siteId] = Context.ConfigApi.GetConfig<ConfigInfo>(PluginId, siteId) ?? new ConfigInfo();
             }
             return ConfigInfoDict[siteId];
-        }
-
-        public static HitsDao HitsDao { get; }
-
-        static Main()
-        {
-            HitsDao = new HitsDao(Context.ConnectionString, Context.DatabaseApi);
         }
 
         public override void Startup(IService service)

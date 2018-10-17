@@ -1,4 +1,5 @@
 ﻿using SiteServer.Plugin;
+using SS.Hits.Provider;
 
 namespace SS.Hits.Core
 {
@@ -16,7 +17,7 @@ namespace SS.Hits.Core
 
                 var tableName = Context.ContentApi.GetTableName(siteId, channelId);
                 
-                Main.HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
+                HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
             }
 
             return string.Empty;

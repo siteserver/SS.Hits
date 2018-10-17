@@ -1,25 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Web.UI.WebControls;
 using SiteServer.Plugin;
-using SS.Hits.Core;
-using SS.Hits.Model;
 
 namespace SS.Hits.Provider
 {
-    public class HitsDao
+    public static class HitsDao
     {
-        private readonly string _connectionString;
-        private readonly IDatabaseApi _helper;
-
-        public HitsDao(string connectionString, IDatabaseApi helper)
-        {
-            _connectionString = connectionString;
-            _helper = helper;
-        }
-
-        public void AddHits(string tableName, bool isCountHits, bool isCountHitsByDay, int contentId)
+        public static void AddHits(string tableName, bool isCountHits, bool isCountHitsByDay, int contentId)
         {
             if (contentId <= 0 || !isCountHits) return;
 
@@ -34,16 +20,16 @@ namespace SS.Hits.Provider
                 var sqlString =
                     $"SELECT ReferenceId, HitsByDay, HitsByWeek, HitsByMonth, LastHitsDate FROM {tableName} WHERE (Id = {contentId})";
 
-                using (var rdr = _helper.ExecuteReader(_connectionString, sqlString))
+                using (var rdr = Context.DatabaseApi.ExecuteReader(Context.ConnectionString, sqlString))
                 {
                     if (rdr.Read())
                     {
                         var i = 0;
-                        referenceId = _helper.GetInt(rdr, i++);
-                        hitsByDay = _helper.GetInt(rdr, i++);
-                        hitsByWeek = _helper.GetInt(rdr, i++);
-                        hitsByMonth = _helper.GetInt(rdr, i++);
-                        lastHitsDate = _helper.GetDateTime(rdr, i);
+                        referenceId = Context.DatabaseApi.GetInt(rdr, i++);
+                        hitsByDay = Context.DatabaseApi.GetInt(rdr, i++);
+                        hitsByWeek = Context.DatabaseApi.GetInt(rdr, i++);
+                        hitsByMonth = Context.DatabaseApi.GetInt(rdr, i++);
+                        lastHitsDate = Context.DatabaseApi.GetDateTime(rdr, i);
                     }
                     rdr.Close();
                 }
@@ -60,25 +46,25 @@ namespace SS.Hits.Provider
                 hitsByMonth = now.Month != lastHitsDate.Month || now.Year != lastHitsDate.Year ? 1 : hitsByMonth + 1;
 
                 sqlString =
-                    $"UPDATE {tableName} SET {_helper.ToPlusSqlString("Hits", 1)}, HitsByDay = {hitsByDay}, HitsByWeek = {hitsByWeek}, HitsByMonth = {hitsByMonth}, LastHitsDate = {_helper.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {contentId}  AND ReferenceId = 0";
-                _helper.ExecuteNonQuery(_connectionString, sqlString);
+                    $"UPDATE {tableName} SET {Context.DatabaseApi.ToPlusSqlString("Hits", 1)}, HitsByDay = {hitsByDay}, HitsByWeek = {hitsByWeek}, HitsByMonth = {hitsByMonth}, LastHitsDate = {Context.DatabaseApi.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {contentId}  AND ReferenceId = 0";
+                Context.DatabaseApi.ExecuteNonQuery(Context.ConnectionString, sqlString);
             }
             else
             {
                 var sqlString =
-                    $"UPDATE {tableName} SET {_helper.ToPlusSqlString("Hits", 1)}, LastHitsDate = {_helper.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {contentId} AND ReferenceId = 0";
-                var count = _helper.ExecuteNonQuery(_connectionString, sqlString);
+                    $"UPDATE {tableName} SET {Context.DatabaseApi.ToPlusSqlString("Hits", 1)}, LastHitsDate = {Context.DatabaseApi.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {contentId} AND ReferenceId = 0";
+                var count = Context.DatabaseApi.ExecuteNonQuery(Context.ConnectionString, sqlString);
                 if (count < 1)
                 {
                     var referenceId = 0;
 
                     sqlString = $"SELECT ReferenceId FROM {tableName} WHERE (Id = {contentId})";
 
-                    using (var rdr = _helper.ExecuteReader(_connectionString, sqlString))
+                    using (var rdr = Context.DatabaseApi.ExecuteReader(Context.ConnectionString, sqlString))
                     {
                         if (rdr.Read())
                         {
-                            referenceId = _helper.GetInt(rdr, 0);
+                            referenceId = Context.DatabaseApi.GetInt(rdr, 0);
                         }
                         rdr.Close();
                     }
@@ -86,8 +72,8 @@ namespace SS.Hits.Provider
                     if (referenceId > 0)
                     {
                         sqlString =
-                            $"UPDATE {tableName} SET {_helper.ToPlusSqlString("Hits", 1)}, LastHitsDate = {_helper.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {referenceId} AND ReferenceId = 0";
-                        _helper.ExecuteNonQuery(_connectionString, sqlString);
+                            $"UPDATE {tableName} SET {Context.DatabaseApi.ToPlusSqlString("Hits", 1)}, LastHitsDate = {Context.DatabaseApi.ToDateTimeSqlString(DateTime.Now)} WHERE Id = {referenceId} AND ReferenceId = 0";
+                        Context.DatabaseApi.ExecuteNonQuery(Context.ConnectionString, sqlString);
                     }
                 }
             }
