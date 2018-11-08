@@ -15,9 +15,9 @@ namespace SS.Hits.Core
                 var contentId = Utils.ToInt(idList[2]);
                 var configInfo = Main.GetConfigInfo(siteId);
 
-                var tableName = Context.ContentApi.GetTableName(siteId, channelId);
+                //var tableName = Context.ContentApi.GetTableName(siteId, channelId);
                 
-                HitsDao.AddHits(tableName, !configInfo.IsHitsDisabled, true, contentId);
+                HitsDao.AddHits(siteId, channelId, contentId, !configInfo.IsHitsDisabled, true);
             }
 
             return string.Empty;
