@@ -26,10 +26,10 @@
     - packages -> **\packages.config
 
   before_build:
-    - dotnet restore SS.SMS.sln
+    - dotnet restore SS.Hits.sln
 
   build:
-    project: SS.SMS.sln # path to Visual Studio solution or project
+    project: SS.Hits.sln # path to Visual Studio solution or project
     publish_nuget: true
 
   deploy:
@@ -69,10 +69,10 @@
     - packages -> **\packages.config
 
   before_build:
-    - dotnet restore SS.SMS.sln
+    - dotnet restore SS.Hits.sln
 
   build:
-    project: SS.SMS.sln # path to Visual Studio solution or project
+    project: SS.Hits.sln # path to Visual Studio solution or project
     publish_nuget: true
 
   deploy:
