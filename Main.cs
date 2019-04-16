@@ -37,27 +37,16 @@ namespace SS.Hits
                 ;
 
             service.BeforeStlParse += Service_BeforeStlParse;
-            service.RestApiGet += Service_ApiGet;
         }
 
         private void Service_BeforeStlParse(object sender, ParseEventArgs e)
         {
             if (e.TemplateType == TemplateType.ContentTemplate && e.ContentId > 0)
             {
-                var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{nameof(ApiUtils.Hits)}/{e.SiteId}_{e.ChannelId}_{e.ContentId}";
+                var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{e.SiteId}/{e.ChannelId}/{e.ContentId}";
                 e.ContentBuilder.Append($@"
 <script src=""{apiUrl}"" type=""text/javascript""></script>");
             }
-        }
-
-        private object Service_ApiGet(object sender, RestApiEventArgs args)
-        {
-            if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(ApiUtils.Hits)))
-            {
-                return ApiUtils.Hits(args.Request, args.RouteId);
-            }
-
-            throw new Exception("请求的资源不在服务器上");
         }
     }
 }

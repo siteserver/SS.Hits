@@ -18,7 +18,8 @@ namespace SS.Hits.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            var request = SiteServer.Plugin.Context.GetCurrentRequest();
+            var request = SiteServer.Plugin.Context.AuthenticatedRequest;
+
             _siteId = request.GetQueryInt("siteId");
 
             if (!request.AdminPermissions.HasSitePermissions(_siteId, Main.PluginId))
