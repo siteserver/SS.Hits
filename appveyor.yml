@@ -4,6 +4,7 @@
       - master
 
   version: 1.0.{build}
+  image: Visual Studio 2017
 
   dotnet_csproj:
     patch: true
@@ -47,6 +48,7 @@
       - dev
 
   version: 1.0.{build}-beta
+  image: Visual Studio 2017
 
   dotnet_csproj:
     patch: true
