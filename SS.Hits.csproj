@@ -11,9 +11,9 @@
     <Company>SiteServer CMS</Company>
     <Product></Product>
     <Description>SiteServer CMS 内容点击量插件</Description>
-    <PackageLicenseUrl>https://github.com/siteserver/SS.Hits/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>GPL-3.0</PackageLicense>
     <PackageProjectUrl>https://github.com/siteserver/SS.Hits</PackageProjectUrl>
-    <PackageIconUrl>https://plugins.siteserver.cn/ss.hits/logo.svg</PackageIconUrl>
+    <PackageIconUrl>https://www.siteserver.cn/docs/SS.Hits/logo.svg</PackageIconUrl>
     <Copyright>Copyright © SiteServer CMS 2018</Copyright>
     <PackageTags>SiteServer CMS Hits Plugin</PackageTags>
     <RepositoryUrl>https://github.com/siteserver/SS.Hits</RepositoryUrl>
@@ -28,6 +28,10 @@
 
   <ItemGroup>
     <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="pages\**" />
   </ItemGroup>
 
 </Project>

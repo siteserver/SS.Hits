@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SiteServer.Plugin;
-using SS.Hits.Core;
 using SS.Hits.Model;
-using SS.Hits.Pages;
 using Menu = SiteServer.Plugin.Menu;
 
 namespace SS.Hits
@@ -32,7 +30,7 @@ namespace SS.Hits
                 {
                     Text = "内容点击量",
                     IconClass = "ion-connection-bars",
-                    Href = $"{nameof(PageSettings)}.aspx"
+                    Href = "pages/settings.html"
                 })
                 ;
 
@@ -41,12 +39,11 @@ namespace SS.Hits
 
         private void Service_BeforeStlParse(object sender, ParseEventArgs e)
         {
-            if (e.TemplateType == TemplateType.ContentTemplate && e.ContentId > 0)
-            {
-                var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{e.SiteId}/{e.ChannelId}/{e.ContentId}";
-                e.ContentBuilder.Append($@"
+            if (e.TemplateType != TemplateType.ContentTemplate || e.ContentId <= 0) return;
+
+            var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{e.SiteId}/{e.ChannelId}/{e.ContentId}";
+            e.ContentBuilder.Append($@"
 <script src=""{apiUrl}"" type=""text/javascript""></script>");
-            }
         }
     }
 }

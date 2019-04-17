@@ -1,6 +1,7 @@
 ﻿using SiteServer.Plugin;
 using System;
 using System.Web.Http;
+using SS.Hits.Model;
 
 namespace SS.Hits.Controllers
 {
@@ -15,7 +16,7 @@ namespace SS.Hits.Controllers
 
                 //var tableName = Context.ContentApi.GetTableName(siteId, channelId);
 
-                AddContentHits(siteId, channelId, contentId, !configInfo.IsHitsDisabled, true);
+                AddContentHits(siteId, channelId, contentId, configInfo);
 
                 return Ok(new
                 {
@@ -28,13 +29,13 @@ namespace SS.Hits.Controllers
             }
         }
 
-        private static void AddContentHits(int siteId, int channelId, int contentId, bool isCountHits, bool isCountHitsByDay)
+        private static void AddContentHits(int siteId, int channelId, int contentId, ConfigInfo configInfo)
         {
-            if (siteId <= 0 || channelId <= 0 || contentId <= 0 || !isCountHits) return;
+            if (siteId <= 0 || channelId <= 0 || contentId <= 0 || configInfo.IsHitsDisabled) return;
             var contentInfo = Context.ContentApi.GetContentInfo(siteId, channelId, contentId);
             if (contentInfo == null) return;
 
-            if (isCountHitsByDay)
+            if (configInfo.IsHitsCountByDay)
             {
                 var now = DateTime.Now;
 
