@@ -14,7 +14,7 @@
     <PackageLicense>GPL-3.0</PackageLicense>
     <PackageProjectUrl>https://github.com/siteserver/SS.Hits</PackageProjectUrl>
     <PackageIconUrl>https://www.siteserver.cn/docs/SS.Hits/logo.svg</PackageIconUrl>
-    <Copyright>Copyright © SiteServer CMS 2018</Copyright>
+    <Copyright>Copyright © SiteServer CMS</Copyright>
     <PackageTags>SiteServer CMS Hits Plugin</PackageTags>
     <RepositoryUrl>https://github.com/siteserver/SS.Hits</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="assets\**" />
     <Content Include="pages\**" />
   </ItemGroup>
 
