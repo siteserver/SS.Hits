@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SiteServer.Plugin;
 using SS.Hits.Model;
 using Menu = SiteServer.Plugin.Menu;
@@ -41,7 +40,7 @@ namespace SS.Hits
         {
             if (e.TemplateType != TemplateType.ContentTemplate || e.ContentId <= 0) return;
 
-            var apiUrl = $"{Context.PluginApi.GetPluginApiUrl(PluginId)}/{e.SiteId}/{e.ChannelId}/{e.ContentId}";
+            var apiUrl = $"{Context.Environment.ApiUrl}/{PluginId}/hits/{e.SiteId}/{e.ChannelId}/{e.ContentId}";
             e.ContentBuilder.Append($@"
 <script src=""{apiUrl}"" type=""text/javascript""></script>");
         }

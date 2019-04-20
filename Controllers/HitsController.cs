@@ -5,6 +5,7 @@ using SS.Hits.Model;
 
 namespace SS.Hits.Controllers
 {
+    [RoutePrefix("hits")]
     public class HitsController : ApiController
     {
         [HttpGet, Route("{siteId:int}/{channelId:int}/{contentId:int}")]
