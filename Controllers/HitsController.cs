@@ -1,7 +1,6 @@
 ﻿using SiteServer.Plugin;
 using System;
 using System.Web.Http;
-using SS.Hits.Core;
 using SS.Hits.Model;
 
 namespace SS.Hits.Controllers
@@ -37,9 +36,37 @@ namespace SS.Hits.Controllers
             var contentInfo = Context.ContentApi.GetContentInfo(siteId, channelId, contentId);
             if (contentInfo == null) return;
 
-            var repository = new ContentRepository(Context.ContentApi.GetTableName(siteId, channelId));
+            if (configInfo.IsHitsCountByDay)
+            {
+                var now = DateTime.Now;
 
-            repository.AddHits(contentInfo, configInfo.IsHitsCountByDay);
+                if (contentInfo.LastHitsDate != null)
+                {
+                    var lastHitsDate = contentInfo.LastHitsDate.Value;
+
+                    contentInfo.HitsByDay = now.Day != lastHitsDate.Day || now.Month != lastHitsDate.Month || now.Year != lastHitsDate.Year ? 1 : contentInfo.HitsByDay + 1;
+                    contentInfo.HitsByWeek = now.Month != lastHitsDate.Month || now.Year != lastHitsDate.Year || now.DayOfYear / 7 != lastHitsDate.DayOfYear / 7 ? 1 : contentInfo.HitsByWeek + 1;
+                    contentInfo.HitsByMonth = now.Month != lastHitsDate.Month || now.Year != lastHitsDate.Year ? 1 : contentInfo.HitsByMonth + 1;
+                }
+                else
+                {
+                    contentInfo.HitsByDay = contentInfo.HitsByWeek = contentInfo.HitsByMonth = 1;
+                }
+
+                contentInfo.Hits += 1;
+
+                contentInfo.LastHitsDate = now;
+
+                Context.ContentApi.Update(siteId, channelId, contentInfo);
+            }
+            else
+            {
+                contentInfo.Hits += 1;
+
+                contentInfo.LastHitsDate = DateTime.Now;
+
+                Context.ContentApi.Update(siteId, channelId, contentInfo);
+            }
         }
     }
 }
